@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Joshua Düring · Generative AI for Work & Research</title>
+  <meta name="description" content="One‑page portfolio for the Generative AI for Work & Research course: about me, course highlights, and weekly submissions." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg-1:#071316; /* deep green-black */
+      --bg-2:#02090b; /* almost black */
+      --ink:#e6f3f1;  /* soft mint ink */
+      --muted:#8aa3a0; /* desaturated teal */
+      --accent:#00e5a8; /* neon mint */
+      --accent-2:#00b3ff; /* cyan */
+      --ring:rgba(0,229,168,.3);
+      --card: rgba(255,255,255,0.045);
+      --border: rgba(255,255,255,0.10);
+      --shadow: 0 20px 70px rgba(0,0,0,.55);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; color:var(--ink); background:
+        radial-gradient(900px 600px at -10% -20%, rgba(0,179,255,.15), transparent 60%),
+        radial-gradient(1100px 700px at 110% -10%, rgba(0,229,168,.18), transparent 60%),
+        radial-gradient(1200px 800px at 50% 140%, rgba(0,229,168,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg-2), var(--bg-1) 60%);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height:1.65;
+      overflow-x:hidden;
+    }
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(2,9,11,.75), rgba(2,9,11,.35));
+      border-bottom:1px solid var(--border);
+    }
+    .nav{max-width:1100px; margin:auto; display:flex; align-items:center; gap:16px; padding:12px 20px}
+    .brand{font-family:"Playfair Display", serif; font-weight:700; letter-spacing:.5px; font-size:20px}
+    .brand span{background: linear-gradient(120deg, var(--accent), var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+
+    /* pill menu */
+    nav{margin-left:auto}
+    nav a{color:var(--ink); text-decoration:none; opacity:.9; padding:10px 14px; border-radius:999px; transition:all .25s}
+    .menu{display:flex; gap:6px; padding:6px; border-radius:999px; border:1px solid var(--border); background:rgba(255,255,255,.03); box-shadow: var(--shadow)}
+    nav a:hover{opacity:1}
+    nav a.active{background:linear-gradient(120deg, rgba(0,229,168,.18), rgba(0,179,255,.18)); border:1px solid var(--border)}
+
+    .hero{max-width:1100px; margin:40px auto 24px; padding:24px; display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:stretch}
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:28px;
+    }
+    .hero h1{font-size: clamp(32px, 5vw, 60px); margin:0; font-family:"Playfair Display", serif; line-height:1.08}
+    .tagline{font-size: clamp(16px, 2.2vw, 20px); color:var(--muted); margin-top:10px}
+    .badges{display:flex; flex-wrap:wrap; gap:12px; margin-top:18px}
+    .badge{border:1px solid var(--border); padding:8px 12px; border-radius:999px; font-size:14px; background:rgba(255,255,255,0.035)}
+    .cta{display:flex; gap:12px; margin-top:20px; flex-wrap:wrap}
+    .btn{border-radius:14px; border:1px solid var(--border); padding:12px 16px; text-decoration:none; color:var(--ink); display:inline-flex; gap:10px; align-items:center; transition:.25s; backdrop-filter: blur(6px); position:relative; isolation:isolate}
+    .btn.primary{background: linear-gradient(135deg, rgba(0,229,168,.9), rgba(0,179,255,.9)); border-color: transparent; font-weight:700}
+    .btn.primary::after{content:""; position:absolute; inset:-2px; border-radius:inherit; background: radial-gradient(300px 80px at 50% 0%, var(--ring), transparent); z-index:-1; filter: blur(8px)}
+    .btn:hover{transform: translateY(-1px)}
+
+    /* Portrait orb inspired by reference */
+    .portrait{position:relative; height:100%; min-height:360px; border-radius:var(--radius); overflow:hidden; display:grid; place-items:center; background: radial-gradient(180px 180px at 30% 40%, rgba(255,255,255,.06), transparent 60%), linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)); border:1px solid var(--border); box-shadow: var(--shadow)}
+    .portrait .orb{width:min(75%,360px); aspect-ratio:1; border-radius:50%; background:
+      radial-gradient(60% 60% at 35% 35%, rgba(255,255,255,.22), transparent 55%),
+      radial-gradient(70% 70% at 70% 70%, rgba(0,229,168,.25), transparent 60%),
+      radial-gradient(100% 100% at 50% 50%, rgba(0,179,255,.12), rgba(0,0,0,.45));
+      box-shadow: inset 0 0 60px rgba(0,0,0,.55), 0 0 0 1px var(--border), 0 30px 90px rgba(0,0,0,.6);
+      position:relative; overflow:hidden; mask-image: radial-gradient(60% 60% at 40% 40%, black 60%, transparent 100%);
+    }
+    .portrait .seal{position:absolute; left:24px; bottom:24px; padding:12px 14px; border-radius:999px; font-size:12px; letter-spacing:.12em; border:1px dashed var(--border); background: rgba(2,9,11,.6); color:var(--muted)}
+
+    section{padding:48px 20px; position:relative}
+    .wrap{max-width:1100px; margin:auto}
+    h2{font-family:"Playfair Display", serif; font-size: clamp(26px, 3vw, 36px); margin:0 0 16px}
+    p.lead{color:var(--muted); margin-top:6px}
+
+    .grid{display:grid; grid-template-columns: repeat(12, minmax(0,1fr)); gap:20px}
+    .col-6{grid-column: span 6}
+    .col-4{grid-column: span 4}
+    .col-8{grid-column: span 8}
+    .full{grid-column:1/-1}
+
+    .card{background:var(--card); border:1px solid var(--border); border-radius: var(--radius); padding:22px; box-shadow: var(--shadow)}
+    .card h3{margin:0 0 8px; font-size:20px}
+    .meta{font-size:13px; color:var(--muted); letter-spacing:.3px}
+    .pill{display:inline-block; padding:6px 10px; border-radius:999px; border:1px solid var(--border); background:rgba(255,255,255,0.03); margin:4px 6px 0 0; font-size:12px}
+
+    /* Weekly submissions */
+    .weeks{display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:18px}
+    .week{position:relative; overflow:hidden}
+    .week::before{content:""; position:absolute; inset:-1px; border-radius: calc(var(--radius) + 2px); background: conic-gradient(from 120deg, rgba(0,229,168,.55), rgba(0,179,255,.55), rgba(0,229,168,.55)); filter: blur(16px); opacity:.35; transform: scale(1.05)}
+    .week > .inner{position:relative; background:rgba(4,12,12,.86); border:1px solid var(--border); border-radius: var(--radius); padding:20px; min-height:140px}
+    .week h4{margin:0 0 8px; font-size:18px}
+    .week a{color:var(--ink); text-decoration:none; font-weight:600}
+    .week .note{color:var(--muted); font-size:14px}
+
+    /* section dividers */
+    .divider{height:1px; background:linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent); margin:28px 0}
+
+    /* Footer */
+    footer{padding:28px 20px; border-top:1px solid var(--border); color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width: 880px){
+      .hero{grid-template-columns:1fr;}
+      .col-6, .col-4, .col-8 {grid-column:1/-1}
+      .portrait{min-height:280px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand" aria-label="Site name">
+        <span>Generative&nbsp;AI</span> for Work & Research
+      </div>
+      <nav>
+        <div class="menu">
+          <a href="#about" id="nav-about">About me</a>
+          <a href="#course" id="nav-course">About the course</a>
+          <a href="#weeks" id="nav-weeks">Weekly submissions</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="title">
+      <div class="panel">
+        <h1 id="title">Joshua Düring</h1>
+        <p class="tagline">Portfolio for the 8‑week cohort course <em>Generative AI for Work & Research</em>. Exploring no‑code and light‑code tools to automate workflows, analyze data, and communicate science effectively.</p>
+        <div class="badges" aria-label="highlights">
+          <span class="badge">LLM‑assisted research</span>
+          <span class="badge">Automation & dashboards</span>
+          <span class="badge">Text analytics</span>
+          <span class="badge">Custom GPTs & RAG</span>
+          <span class="badge">Communication & outreach</span>
+        </div>
+        <div class="cta">
+          <a class="btn primary" href="#weeks">View weekly work</a>
+          <a class="btn" href="#course">Course overview</a>
+        </div>
+      </div>
+      <aside class="portrait" aria-label="portrait orb">
+        <!-- Optional: replace the div below with an <img> if you want a real portrait. Keep the orb for now for a unique look. -->
+        <div class="orb" aria-hidden="true"></div>
+        <div class="seal">ETH Zürich · Life Sciences</div>
+      </aside>
+    </section>
+
+    <!-- About me -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="wrap">
+        <h2 id="about-title">About me</h2>
+        <div class="grid">
+          <div class="col-8 card">
+            <p>I’m a life‑science generalist with a strong lab background and a growing focus on AI‑powered productivity. I like building workflows that turn messy, repetitive tasks into reliable systems. My scientific training taught me to design experiments, analyze data, and communicate clearly—skills I now apply to human‑in‑the‑loop AI tooling.</p>
+            <p class="meta">M.Sc. in Cell Biology (ETH Zurich); B.Sc. in Biology (ETH Zurich). Lab experience includes CRISPR knockdowns, lentiviral transduction, and assay development. Roles across research, diagnostics, and medical sales cultivated stakeholder communication and problem‑solving.</p>
+          </div>
+          <div class="col-4 card">
+            <h3>Highlights</h3>
+            <ul style="margin:8px 0 0 18px">
+              <li>Heat‑shock response project (Drosophila germ line)</li>
+              <li>Routine RT‑PCR diagnostics workflow ownership</li>
+              <li>Scientific communication & outreach experience</li>
+            </ul>
+            <div style="margin-top:10px">
+              <span class="pill">Teamwork</span>
+              <span class="pill">Fast learner</span>
+              <span class="pill">Problem solving</span>
+              <span class="pill">German & English</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About the course -->
+    <section id="course" aria-labelledby="course-title">
+      <div class="wrap">
+        <h2 id="course-title">About the course</h2>
+        <p class="lead">An 8‑week live cohort on practical GenAI for research and work. Weekly workshops, live help sessions, feedback on assessments, and a coached capstone. Topics range from LLM basics and document creation to data analysis, text analytics, custom GPTs/RAG, automation, and research communication.</p>
+        <div class="grid" style="margin-top:14px">
+          <div class="col-6 card">
+            <h3>Bootcamp features</h3>
+            <ul style="margin:8px 0 0 18px">
+              <li>Weekly live workshops & help sessions</li>
+              <li>Private community & personalized feedback</li>
+              <li>Capstone coaching & shareable certificate</li>
+              <li>Lifetime access to tutorial library</li>
+            </ul>
+          </div>
+          <div class="col-6 card">
+            <h3>Grading rubric</h3>
+            <ul style="margin:8px 0 0 18px">
+              <li>Online quizzes – 15%</li>
+              <li>Workshop assignments – 35%</li>
+              <li>Attendance & participation – 10%</li>
+              <li>Final project – 40% (pass at 80%)</li>
+            </ul>
+          </div>
+          <div class="full" style="margin-top:12px"></div>
+          <div class="col-4 card">
+            <h3>Module 1</h3>
+            <p class="meta">Websites, documents & presentations</p>
+            <p>LLM basics; generating Markdown/LaTeX/HTML; building simple research sites; structured documents; AI‑assisted presentations.</p>
+          </div>
+          <div class="col-4 card">
+            <h3>Module 2</h3>
+            <p class="meta">AI‑automated data analysis</p>
+            <p>Code Interpreter for analysis; dashboards; batch data transformation; automated reports & visualizations; spreadsheet automations.</p>
+          </div>
+          <div class="col-4 card">
+            <h3>Module 3</h3>
+            <p class="meta">GenAI for research & text analysis</p>
+            <p>Literature review tools; classification; sentiment; knowledge maps; summarization pipelines; synthesis systems.</p>
+          </div>
+          <div class="col-4 card">
+            <h3>Module 4</h3>
+            <p class="meta">Custom GPTs & chatbots</p>
+            <p>Chat architecture, context windows & RAG; custom GPTs; Botpress chatbots; knowledge‑base integrations.</p>
+          </div>
+          <div class="col-4 card">
+            <h3>Module 5</h3>
+            <p class="meta">AI for task automation</p>
+            <p>Email automations; agent workflows; browser‑control agents for web tasks.</p>
+          </div>
+          <div class="col-4 card">
+            <h3>Module 6</h3>
+            <p class="meta">Communication & outreach</p>
+            <p>AI‑generated summaries; figures & diagrams; video abstracts; prompts for visualization; content scheduling.</p>
+          </div>
+          <div class="col-4 card">
+            <h3>Module 7</h3>
+            <p class="meta">Capstone & showcase</p>
+            <p>Project check, peer feedback, final presentation, and public Q&A.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Weekly submissions -->
+    <section id="weeks" aria-labelledby="weeks-title">
+      <div class="wrap">
+        <h2 id="weeks-title">My weekly submissions</h2>
+        <p class="lead">Placeholders for now — links will be added as each assignment is completed.</p>
+        <div class="weeks" style="margin-top:14px">
+          <!-- 8‑week placeholders -->
+          <div class="week"><div class="inner">
+            <h4>Week 1 — Websites & Docs</h4>
+            <p class="note">Landing page + structured markdown notes.</p>
+            <a href="#" aria-disabled="true">Link coming soon</a>
+          </div></div>
+          <div class="week"><div class="inner">
+            <h4>Week 2 — Data Analysis</h4>
+            <p class="note">Notebook: exploratory analysis + auto‑report.</p>
+            <a href="#" aria-disabled="true">Link coming soon</a>
+          </div></div>
+          <div class="week"><div class="inner">
+            <h4>Week 3 — Text Analytics</h4>
+            <p class="note">Literature pipeline & topic map.</p>
+            <a href="#" aria-disabled="true">Link coming soon</a>
+          </div></div>
+          <div class="week"><div class="inner">
+            <h4>Week 4 — Custom GPTs</h4>
+            <p class="note">Task‑specific assistant with RAG.</p>
+            <a href="#" aria-disabled="true">Link coming soon</a>
+          </div></div>
+          <div class="week"><div class="inner">
+            <h4>Week 5 — Automation</h4>
+            <p class="note">Agent flow for recurring workflows.</p>
+            <a href="#" aria-disabled="true">Link coming soon</a>
+          </div></div>
+          <div class="week"><div class="inner">
+            <h4>Week 6 — Communication</h4>
+            <p class="note">Figure set & video abstract.</p>
+            <a href="#" aria-disabled="true">Link coming soon</a>
+          </div></div>
+          <div class="week"><div class="inner">
+            <h4>Week 7 — Capstone</h4>
+            <p class="note">Prototype & peer feedback.</p>
+            <a href="#" aria-disabled="true">Link coming soon</a>
+          </div></div>
+          <div class="week"><div class="inner">
+            <h4>Week 8 — Showcase</h4>
+            <p class="note">Final presentation & Q&A.</p>
+            <a href="#" aria-disabled="true">Link coming soon</a>
+          </div></div>
+        </div>
+      </div>
+    </section>
+      <div class="wrap"><div class="divider"></div></div>
+  </main>
+
+  <script>
+    // Active menu link on scroll
+    const sections = [
+      {id:'about', el: document.getElementById('about')},
+      {id:'course', el: document.getElementById('course')},
+      {id:'weeks', el: document.getElementById('weeks')},
+    ];
+    const links = {
+      about: document.getElementById('nav-about'),
+      course: document.getElementById('nav-course'),
+      weeks: document.getElementById('nav-weeks')
+    };
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if(e.isIntersecting){
+          Object.values(links).forEach(a=>a.classList.remove('active'));
+          const id = e.target.id; if(links[id]) links[id].classList.add('active');
+        }
+      });
+    }, {threshold:.5});
+    sections.forEach(s=>obs.observe(s.el));
+
+    // year stamp
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <footer>
+    <div class="wrap">
+      <div class="grid">
+        <div class="col-8">
+          <strong>Note:</strong> Contact details are intentionally omitted to reduce spam. Feel free to reach out through trusted professional channels.
+        </div>
+        <div class="col-4" style="text-align:right">
+          <span class="meta">© <span id="year"></span> Joshua Düring · All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
