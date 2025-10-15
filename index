@@ -116,6 +116,7 @@
       .col-6, .col-4, .col-8 {grid-column:1/-1}
       .portrait{min-height:280px}
     }
+  .portrait .photo{position:absolute; inset:0; margin:auto; width:100%; height:100%; object-fit:cover; filter:grayscale(100%) contrast(1.05) brightness(.95); opacity:.9; clip-path:circle(45% at 50% 50%);}
   </style>
 </head>
 <body>
@@ -151,9 +152,8 @@
           <a class="btn" href="#course">Course overview</a>
         </div>
       </div>
-      <aside class="portrait" aria-label="portrait orb">
-        <!-- Optional: replace the div below with an <img> if you want a real portrait. Keep the orb for now for a unique look. -->
-        <div class="orb" aria-hidden="true"></div>
+      <aside class="portrait" aria-label="portrait">
+        <img class="photo" src="https://github.com/jduering/GRAPH/blob/main/9D2C3915-6C83-4A02-8D00-0AE539CC6F88.JPG?raw=true" alt="Portrait of Joshua Düring" loading="lazy"/>
         <div class="seal">ETH Zürich · Life Sciences</div>
       </aside>
     </section>
@@ -302,31 +302,6 @@
       <div class="wrap"><div class="divider"></div></div>
   </main>
 
-  <script>
-    // Active menu link on scroll
-    const sections = [
-      {id:'about', el: document.getElementById('about')},
-      {id:'course', el: document.getElementById('course')},
-      {id:'weeks', el: document.getElementById('weeks')},
-    ];
-    const links = {
-      about: document.getElementById('nav-about'),
-      course: document.getElementById('nav-course'),
-      weeks: document.getElementById('nav-weeks')
-    };
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if(e.isIntersecting){
-          Object.values(links).forEach(a=>a.classList.remove('active'));
-          const id = e.target.id; if(links[id]) links[id].classList.add('active');
-        }
-      });
-    }, {threshold:.5});
-    sections.forEach(s=>obs.observe(s.el));
-
-    // year stamp
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 
   <footer>
     <div class="wrap">
@@ -342,7 +317,36 @@
   </footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.addEventListener('DOMContentLoaded', () => {
+      // Active menu link on scroll
+      const sections = [
+        {id:'about', el: document.getElementById('about')},
+        {id:'course', el: document.getElementById('course')},
+        {id:'weeks', el: document.getElementById('weeks')},
+      ].filter(s => s.el);
+      const links = {
+        about: document.getElementById('nav-about'),
+        course: document.getElementById('nav-course'),
+        weeks: document.getElementById('nav-weeks')
+      };
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if(e.isIntersecting){
+            Object.values(links).forEach(a=>a && a.classList.remove('active'));
+            const id = e.target.id; if(links[id]) links[id].classList.add('active');
+          }
+        });
+      }, {threshold:.5});
+      sections.forEach(s=>obs.observe(s.el));
+
+      // Year stamp
+      const yearEl = document.getElementById('year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+      // Lightweight tests
+      console.assert(!!yearEl, 'Footer year element should exist');
+      console.assert(Object.values(links).every(Boolean), 'Nav links should exist');
+    });
   </script>
 </body>
 </html>
