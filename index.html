@@ -112,6 +112,64 @@
     /* Footer */
     footer{padding:28px 20px; border-top:1px solid var(--border); color:var(--muted)}
 
+    /* Popup flyer */
+    .popup-backdrop{
+      position:fixed;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,.7);
+      backdrop-filter:blur(12px);
+      z-index:999;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .25s ease;
+    }
+    .popup-backdrop.active{
+      opacity:1;
+      pointer-events:auto;
+    }
+    .popup-modal{
+      background:rgba(2,9,11,.96);
+      border-radius:var(--radius);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      padding:18px 18px 16px;
+      max-width:min(90vw,720px);
+      max-height:90vh;
+      overflow:auto;
+      position:relative;
+    }
+    .popup-modal img{
+      display:block;
+      max-width:100%;
+      height:auto;
+      border-radius:12px;
+    }
+    .popup-close{
+      position:absolute;
+      top:10px;
+      right:10px;
+      border:none;
+      border-radius:999px;
+      padding:4px 9px;
+      background:rgba(0,0,0,.6);
+      color:var(--ink);
+      cursor:pointer;
+      font-size:16px;
+      line-height:1;
+    }
+    .popup-close:hover{
+      background:rgba(0,0,0,.85);
+    }
+    .popup-note{
+      margin-top:8px;
+      font-size:12px;
+      color:var(--muted);
+      text-align:right;
+    }
+
     /* Responsive */
     @media (max-width: 880px){
       .hero{grid-template-columns:1fr;}
@@ -330,6 +388,15 @@
     </div>
   </footer>
 
+  <!-- Flyer popup -->
+  <div id="flyer-popup" class="popup-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-label="AI Portfolio Showcase Flyer">
+    <div class="popup-modal">
+      <button class="popup-close" id="flyer-popup-close" aria-label="Close flyer">×</button>
+      <img src="https://github.com/jduering/GRAPH/blob/main/GENERATIVE%20AI%20WORK%20RESEARCH%20&amp;%20NOST.STEWE-%20WOI%20ACJINS!004%20AI%20Portfolio%20Showcase%20Day.png?raw=true" alt="AI Portfolio Showcase Day Flyer">
+      <div class="popup-note">Click outside the flyer or press × to close.</div>
+    </div>
+  </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       // Active menu link on scroll
@@ -358,6 +425,33 @@
       // Year stamp
       const yearEl = document.getElementById('year');
       if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+      // Flyer popup logic
+      const flyerPopup = document.getElementById('flyer-popup');
+      const flyerClose = document.getElementById('flyer-popup-close');
+
+      if (flyerPopup) {
+        // show popup shortly after load
+        setTimeout(() => {
+          flyerPopup.classList.add('active');
+          flyerPopup.setAttribute('aria-hidden', 'false');
+        }, 800);
+
+        // close when clicking backdrop
+        flyerPopup.addEventListener('click', (e) => {
+          if (e.target === flyerPopup) {
+            flyerPopup.classList.remove('active');
+            flyerPopup.setAttribute('aria-hidden', 'true');
+          }
+        });
+      }
+
+      if (flyerClose && flyerPopup) {
+        flyerClose.addEventListener('click', () => {
+          flyerPopup.classList.remove('active');
+          flyerPopup.setAttribute('aria-hidden', 'true');
+        });
+      }
 
       // Lightweight tests
       console.assert(!!yearEl, 'Footer year element should exist');
